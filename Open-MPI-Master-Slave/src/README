@@ -1,0 +1,45 @@
+Manolache Marius-Alexandru, 333CA
+
+Stabilirea topologiei:
+
+Exista practic 2 tipuri de topologii in tema aceasta, cea de inel si cea de linie,
+iar flow-ul transmiterii topologiei este astfel:
+    - inel: 0 -> 1 -> 2 -> 3 -> 0 -> 1 -> 2
+    - linie: 0 -> 3 -> 2 (-> 1) ---- (1 ->) 2 -> 3 -> 0
+
+Fiecare proces coordonator trimite la dreapta ce stie el si ce stiu precedentii,
+diferenta este ca la inel 3 afla primul topologia completa, iar transmiterea se opreste la 2,
+spre deosebire de linie unde primul care afla topologia completa este ultimul nod (2 sau 1),
+apoi o trimite inapoi.
+
+Mai intai se trimite size-ul, apoi linia din matricea de procese corespunzatoare fiecarui
+proces coordonator.
+
+Calculul vectorului:
+
+Fiecare nod isi opreste o parte din vector dupa ce calculeaza numarul de procese worker ramase
+disponibile, si dimensiunea ramasa din vector. Impartirea se face dupa formula din laboratorul 1.
+
+Calculul se face la fel atat in cazul topologiei inel, cat si a celei linie, fiecare nod isi opreste
+partea lui, da mai departe, apoi asteapta ca nodul din dreapta sa ii dea inapoi restul de vector.
+
+Exemplu pe topologia din enunt:
+
+0 genereaza vectorul: 11 10 9 8 7 6 5 4 3 2 1 0
+- calculeaza start, end si split exact ca in lab 1, split = N / P = 12 / 8 = 1.5
+- ii asigneaza lui 4, singurul sau worker primul element din vector (11, indice 0)
+- trimite mai departe vecinului din dreapta vectorul 10 9 8 7 6 5 4 3 2 1 0
+- asteapta prelucrarea vectorului 10 9 8 7 6 5 4 3 2 1 0 de la vecinul din dreapta si de la workerul sau
+
+1 primeste vectorul de mai sus
+- si din formule rezulta pentru workerul 5 elementul 10, pentru workerul elementele 9 si 8
+- trimite mai departe vectorul 7 6 5 4 3 2 1 0
+- asteapta prelucrarea vectorului de la vecinul din dreapta si de la workeri
+- trimite vectorul rezultat spre stanga, dupa ce primeste si de la vecinii din dreapta partea lor
+
+etc.
+
+Am incercat sa am o abordare cat mai generala, practic programul functioneaza pentru:
+- orice topologie inel, oricat de mare
+- orice topologie linie, oricat de mare, atata timp cat nodul 1 este cel deconectat de 0 sau eliminat de tot.
+

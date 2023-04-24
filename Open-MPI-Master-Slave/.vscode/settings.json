@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "iosfwd": "cpp",
+        "type_traits": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp",
+        "xutility": "cpp",
+        "system_error": "cpp",
+        "xtr1common": "cpp",
+        "initializer_list": "cpp",
+        "xstring": "cpp",
+        "utility": "cpp",
+        "algorithm": "cpp",
+        "ios": "cpp",
+        "ostream": "cpp"
+    }
+}
